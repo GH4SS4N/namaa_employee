@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import '../search.dart';
 
@@ -11,12 +12,25 @@ class SearchWidget extends ConsumerWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
             child: FlatButton(
+              minWidth: MediaQuery.of(context).size.width * 0.27,
               height: 57,
-              onPressed: () {
+              onPressed: () async {
+                var dietPlan = ParseObject('DietPlan')
+                  ..set('Name', 'Ketogenic')
+                  ..set('Fat', 65);
+                //await dietPlan.save().whenComplete(() => print("object"));
+                var response = await dietPlan.save().then((response) {
+                  if (response.success) {
+                    print(response.results.first.toString());
+                  }
+                  ;
+                });
+
                 context.read(searchStateProvider).state = 2;
               },
               child: Row(
@@ -36,7 +50,7 @@ class SearchWidget extends ConsumerWidget {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width * 0.66,
+            width: MediaQuery.of(context).size.width * 0.60,
             child: new TextFormField(
               decoration: new InputDecoration(
                 suffixIcon: Icon(Icons.phone_android),

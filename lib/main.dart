@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/ServayPage.dart';
 import 'package:namaa_employee/pages/notificationsPage.dart';
 import 'package:namaa_employee/pages/searchpage/search.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -13,13 +14,26 @@ const Color green = Color.fromRGBO(46, 125, 50, 1);
 const Color darkgray = Color.fromRGBO(97, 97, 97, 1);
 const Color gray = Color.fromRGBO(243, 243, 243, 1);
 
+const appId = "OzrokmU22cgyApcIL7XMkNvADiuxuro1B5SRJ8Yy";
+const serverUrl = "https://parseapi.back4app.com/";
+const clientKey = "yQXy4KHzCutNlZOtToTsRU7AsHXqMts6oPaloj58";
+
 final pageStateProvider = StateProvider<int>((ref) {
   return 1;
 });
 
-class MyApp extends StatelessWidget {
+final connectionProvider = FutureProvider<Parse>(
+  (ref) async => await Parse().initialize(
+    appId,
+    serverUrl,
+    clientKey: clientKey,
+    //fileDirectory: (await getExternalStorageDirectory()).path,
+  ),
+);
+
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, watch) {
     return MaterialApp(
       builder: (context, child) {
         return Directionality(
@@ -32,7 +46,15 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      home: watch(connectionProvider).when(
+        data: (parse) => MyHomePage(),
+        loading: () =>
+            Container(child: Center(child: CircularProgressIndicator())),
+        error: (e, stack) {
+          return Scaffold(
+              body: Container(child: Center(child: Text(e.toString()))));
+        },
+      ),
     );
   }
 }
