@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/pages/searchpage/widgets/infoWidget.dart';
-import 'package:namaa_employee/pages/searchpage/widgets/nameWidget.dart';
-import 'package:namaa_employee/pages/searchpage/widgets/searchWidgit.dart';
+import 'package:namaa_employee/pages/employee/searchpage/widgets/infoWidget.dart';
+import 'package:namaa_employee/pages/employee/searchpage/widgets/nameWidget.dart';
+import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
+// import 'package:namaa_employee/pages/searchpage/widgets/infoWidget.dart';
+// import 'package:namaa_employee/pages/searchpage/widgets/nameWidget.dart';
+// import 'package:namaa_employee/pages/searchpage/widgets/searchWidgit.dart';
 
-import '../../main.dart';
+// import '../../main.dart';
 
 const Color yallow = Color.fromRGBO(255, 202, 40, 1);
 const Color green = Color.fromRGBO(46, 125, 50, 1);

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 
-import 'searchpage/search.dart';
+// import '../../searchpage/search.dart';
 
 class NotEdit extends ConsumerWidget {
   DateTime _date = DateTime(2020, 11, 17);
@@ -223,18 +224,22 @@ class NotEdit extends ConsumerWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "اضافه",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "اضافه",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                             color: green,
                           ),
@@ -243,18 +248,22 @@ class NotEdit extends ConsumerWidget {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "حذف",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "حذف",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                             color: Colors.red.withRed(-60),
                           ),

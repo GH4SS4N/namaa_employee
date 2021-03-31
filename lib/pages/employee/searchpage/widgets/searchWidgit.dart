@@ -20,16 +20,16 @@ class SearchWidget extends ConsumerWidget {
               minWidth: MediaQuery.of(context).size.width * 0.27,
               height: 57,
               onPressed: () async {
-                var dietPlan = ParseObject('DietPlan')
-                  ..set('Name', 'Ketogenic')
-                  ..set('Fat', 65);
-                //await dietPlan.save().whenComplete(() => print("object"));
-                var response = await dietPlan.save().then((response) {
-                  if (response.success) {
-                    print(response.results.first.toString());
-                  }
-                  ;
-                });
+                // var dietPlan = ParseObject('DietPlan')
+                //   ..set('Name', 'Ketogenic')
+                //   ..set('Fat', 65);
+                // //await dietPlan.save().whenComplete(() => print("object"));
+                // var response = await dietPlan.save().then((response) {
+                //   if (response.success) {
+                //     print(response.results.first.toString());
+                //   }
+                //   ;
+                // });
 
                 context.read(searchStateProvider).state = 2;
               },

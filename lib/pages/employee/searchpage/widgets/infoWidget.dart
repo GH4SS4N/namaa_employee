@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/pages/notEdit.dart';
+import 'package:namaa_employee/pages/employee/searchpage/notEdit.dart';
 
 import '../search.dart';
 
