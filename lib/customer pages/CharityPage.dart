@@ -154,39 +154,32 @@ class CharityPage extends ConsumerWidget {
     return Container(
       child: Column(
         children: [
-          Material(
-            //elevation: 20,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
-              color: gray,
-              child: Row(
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "التنبيهات",
-                        style: TextStyle(fontSize: 45, color: green),
-                      ),
-                      Row(
-                        //mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "اليوم   ",
-                            style: TextStyle(fontSize: 20, color: darkgray),
-                          ),
-                          Text(
-                            "20/12/2021  ",
-                            style: TextStyle(fontSize: 20, color: darkgray),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
+            color: gray,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "التبرعات",
+                  style: TextStyle(fontSize: 45, color: green),
+                ),
+                Row(
+                  //mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "اليوم   ",
+                      style: TextStyle(fontSize: 20, color: darkgray),
+                    ),
+                    Text(
+                      "20/12/2021  ",
+                      style: TextStyle(fontSize: 20, color: darkgray),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           Container(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:namaa_employee/ChatPage.dart';
+import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 
-import '../main.dart';
+//import '../main.dart';
 
 class BroudCastPage extends ConsumerWidget {
   // Function x;
@@ -56,40 +58,60 @@ class BroudCastPage extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Material(
-            //elevation: 20,
-            child: Container(
-              padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
-              color: gray,
-              child: Row(
-                children: [
-                  Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "رسائل عامه",
-                        style: TextStyle(fontSize: 45, color: green),
-                      ),
-                      Row(
-                        //mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "اليوم   ",
-                            style: TextStyle(fontSize: 20, color: darkgray),
-                          ),
-                          Text(
-                            "20/12/2021  ",
-                            style: TextStyle(fontSize: 20, color: darkgray),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ],
-              ),
+          Container(
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+            color: gray,
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "رسائل عامه",
+                      style: TextStyle(fontSize: 45, color: green),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.headset_mic,
+                              size: 40,
+                              color: green,
+                            ),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChatPage()));
+                            }),
+                        Text(
+                          "الدعم الفني",
+                          style: TextStyle(color: green),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+                Row(
+                  //mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "اليوم   ",
+                      style: TextStyle(fontSize: 20, color: darkgray),
+                    ),
+                    Text(
+                      "20/12/2021  ",
+                      style: TextStyle(fontSize: 20, color: darkgray),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
           Container(
