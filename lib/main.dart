@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:namaa_employee/SupportPages/SMassagesPage.dart';
+import 'package:namaa_employee/SupportPages/SentBroudCast.dart';
 import 'package:namaa_employee/customer%20pages/AddCharity.dart';
 import 'package:namaa_employee/customer%20pages/CharityPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/ServayPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notificationsPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
-import 'package:namaa_employee/wigets/ddrawer.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
+import 'AccuntentPages/AccuntantCharityPage.dart';
+import 'AccuntentPages/AccuntantSearchPage.dart';
 import 'customer pages/BroudCast.dart';
+import 'drawer/ddrawer.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -52,7 +56,7 @@ class MyApp extends ConsumerWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: watch(connectionProvider).when(
-        data: (parse) => SafeArea(child: CustomerApp()),
+        data: (parse) => SafeArea(child: SupportApp()),
         loading: () =>
             Container(child: Center(child: CircularProgressIndicator())),
         error: (e, stack) {
@@ -297,9 +301,9 @@ class AccuntantApp extends ConsumerWidget {
       drawer: OwnerDrawer(),
       resizeToAvoidBottomInset: false,
       body: pageState == 1
-          ? CharityPage()
+          ? AccuntantCharityPage()
           : pageState == 2
-              ? SingleChildScrollView(child: AddCharityPage())
+              ? SingleChildScrollView(child: AccuntantSearchPage())
               : BroudCastPage(),
       //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
       bottomNavigationBar: BottomAppBar(
@@ -317,7 +321,7 @@ class AccuntantApp extends ConsumerWidget {
                 }),
             IconButton(
                 icon: Icon(
-                  Icons.check_circle,
+                  Icons.history_rounded,
                   color: Colors.white,
                 ),
                 onPressed: () {
@@ -328,6 +332,10 @@ class AccuntantApp extends ConsumerWidget {
               width: 40,
             ),
             //Spacer(),
+            // Container(
+            //   height: 1,
+            //   width: 40,
+            // ),
             IconButton(
                 icon: Icon(
                   Icons.campaign,
@@ -346,7 +354,7 @@ class AccuntantApp extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
           backgroundColor: green,
-          child: Icon(Icons.add),
+          child: Icon(Icons.search),
           onPressed: () {
             context.read(pageStateProvider).state = 2;
           }),
@@ -394,9 +402,9 @@ class SupportApp extends ConsumerWidget {
       drawer: OwnerDrawer(),
       resizeToAvoidBottomInset: false,
       body: pageState == 1
-          ? CharityPage()
+          ? SMassagesPage()
           : pageState == 2
-              ? SingleChildScrollView(child: AddCharityPage())
+              ? SingleChildScrollView(child: SendBroudCastPage())
               : BroudCastPage(),
       //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
       bottomNavigationBar: BottomAppBar(
@@ -414,7 +422,7 @@ class SupportApp extends ConsumerWidget {
                 }),
             IconButton(
                 icon: Icon(
-                  Icons.check_circle,
+                  Icons.mail_outline,
                   color: Colors.white,
                 ),
                 onPressed: () {
