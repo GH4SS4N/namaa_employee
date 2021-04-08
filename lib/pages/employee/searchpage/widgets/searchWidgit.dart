@@ -19,6 +19,10 @@ final donerProvider = StateProvider<ParseObject>((ref) {
   return null;
 });
 
+final reminderProvider = StateProvider<List<ParseObject>>((ref) {
+  return null;
+});
+
 final nameProvider = StateProvider<String>((ref) {
   return "";
 });
@@ -42,8 +46,15 @@ class SearchWidget extends ConsumerWidget {
         } else {
           context.read(phoneNumberProvider).state = phoneNumber;
           context.read(nameProvider).state = value[0].get("name");
-          context.read(searchStateProvider).state = 3;
+
           context.read(donerProvider).state = value[0];
+          getReminders(value[0])
+              .whenComplete(() => print("getreminders"))
+              .then((value) {
+            print(value.toString());
+            context.read(reminderProvider).state = value;
+            context.read(searchStateProvider).state = 3;
+          });
         }
       });
 

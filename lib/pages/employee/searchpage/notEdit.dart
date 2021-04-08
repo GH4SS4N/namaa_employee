@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import '../../../main.dart';
 import '../../../requests.dart';
@@ -10,6 +11,10 @@ import '../../../requests.dart';
 
 final dateProvider = StateProvider<DateTime>((ref) {
   return DateTime.now();
+});
+
+final chosinReminderProvider = StateProvider<ParseObject>((ref) {
+  return null;
 });
 
 class NotEdit extends ConsumerWidget {
@@ -49,6 +54,7 @@ class NotEdit extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final date = watch(dateProvider).state;
     final searchState = watch(searchStateProvider).state;
+    final _reminder = watch(chosinReminderProvider).state;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -83,6 +89,11 @@ class NotEdit extends ConsumerWidget {
                                     size: 50,
                                   ),
                                   onPressed: () {
+                                    _reminder != null
+                                        ? context
+                                            .read(chosinReminderProvider)
+                                            .state = null
+                                        : null;
                                     Navigator.pop(context);
                                   })
                             ],
@@ -115,7 +126,7 @@ class NotEdit extends ConsumerWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 30, 0, 30),
+                            padding: const EdgeInsets.fromLTRB(0, 30, 0, 10),
                             child: Stack(
                               children: [
                                 TextFormField(
@@ -162,16 +173,16 @@ class NotEdit extends ConsumerWidget {
                               ],
                             ),
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                "حالة التكرار",
-                                style: TextStyle(fontSize: 25, color: green),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       "حالة التكرار",
+                          //       style: TextStyle(fontSize: 25, color: green),
+                          //     ),
+                          //   ],
+                          // ),
                           Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                               child: Container(
                                   //@@@@@@@@@@@@@@@@@@@@
                                   )),
@@ -186,6 +197,9 @@ class NotEdit extends ConsumerWidget {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(0, 0, 0, 50),
                             child: TextFormField(
+                              initialValue: _reminder == null
+                                  ? null
+                                  : _reminder.get("note"),
                               expands: false,
                               minLines: null,
                               maxLines: null,
@@ -223,7 +237,9 @@ class NotEdit extends ConsumerWidget {
                             child: TextFormField(
                               enableInteractiveSelection: true,
                               expands: false,
-
+                              initialValue: _reminder == null
+                                  ? null
+                                  : _reminder.get("reply"),
                               minLines: null,
                               maxLines: null,
                               decoration: new InputDecoration(
