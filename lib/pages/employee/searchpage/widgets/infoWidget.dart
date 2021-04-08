@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notEdit.dart';
 
+import '../../../../main.dart';
 import '../search.dart';
 
 class InfoWidget extends ConsumerWidget {

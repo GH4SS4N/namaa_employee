@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/pages/employee/searchpage/widgets/nameWidget.dart';
+import 'package:namaa_employee/customer%20pages/widget/CDropdownMenu.dart';
+//import 'package:namaa_employee/pages/employee/searchpage/widgets/nameWidget.dart';
 
 import '../main.dart';
 
@@ -59,6 +60,9 @@ class AddCharityPage extends ConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
               child: Column(
                 children: [
+                  CDropdown(
+                      selectedState: countrySelectedProvider,
+                      options: ["asdf", "dgh", "rt6yu"]),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: new TextFormField(

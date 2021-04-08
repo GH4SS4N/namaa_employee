@@ -56,7 +56,7 @@ class MyApp extends ConsumerWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: watch(connectionProvider).when(
-        data: (parse) => SafeArea(child: SupportApp()),
+        data: (parse) => SafeArea(child: EmployeeApp()),
         loading: () =>
             Container(child: Center(child: CircularProgressIndicator())),
         error: (e, stack) {

@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 
+import 'main.dart';
+
 class ChatPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {

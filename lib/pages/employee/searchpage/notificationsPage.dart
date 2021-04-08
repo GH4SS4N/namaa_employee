@@ -4,6 +4,7 @@ import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 // import 'package:namaa_employee/pages/searchpage/search.dart';
 
 //import '../main.dart';
+import '../../../main.dart';
 import 'notEdit.dart';
 
 class NotaficationsPage extends ConsumerWidget {

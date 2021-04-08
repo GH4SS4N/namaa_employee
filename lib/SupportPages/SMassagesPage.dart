@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/ChatPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
+
+import '../main.dart';
 // import 'package:namaa_employee/pages/searchpage/search.dart';
 
 //import '../main.dart';
