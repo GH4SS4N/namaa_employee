@@ -1,13 +1,5 @@
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-Future<List<ParseObject>> getDonationsOf(ParseObject donor) async {
-  final query = QueryBuilder(ParseObject('Donation'))
-    ..whereEqualTo('donor', donor);
-
-  final response = await query.query();
-  return response.results;
-}
-
 Future<List<ParseObject>> getMessagesOf(ParseObject donor) async {
   final query = QueryBuilder(ParseObject('Message'))
     ..whereEqualTo('donor', donor);
@@ -27,15 +19,22 @@ Future<List<ParseObject>> getPrograms() async {
 }
 
 Future<ParseObject> createDonation(ParseObject donor, ParseObject program,
-    String wireNumber, double amount, String note) async {
-  final newDonation = ParseObject('Donation');
-
-  newDonation.set('donor', donor);
-  newDonation.set('program', program);
-  newDonation.set('wireNumber', wireNumber);
-  newDonation.set('amount', amount);
-  newDonation.set('note', note);
+    String wireNumber, double amount) async {
+  final newDonation = ParseObject('Donation')
+    ..set('donor', donor)
+    ..set('program', program)
+    ..set('wireNumber', wireNumber)
+    ..set('amount', amount);
 
   final response = await newDonation.save();
+  return response.result;
+}
+
+Future<ParseObject> createMessage(ParseObject donor, String text) async {
+  final newMessage = ParseObject('Message')
+    ..set('donor', donor)
+    ..set('fromDonor', true)
+    ..set('text', text);
+  final response = await newMessage.save();
   return response.result;
 }

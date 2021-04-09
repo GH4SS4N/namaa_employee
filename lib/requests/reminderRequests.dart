@@ -29,14 +29,10 @@ Future deleteReminder(ParseObject reminder) async {
 
 // returns null if no reminders were found
 Future<List<ParseObject>> getRemindersToday() async {
-  final current = DateTime.now();
-  final today = DateTime(current.year, current.month, current.day);
+  final now = DateTime.now();
 
   final query = QueryBuilder(ParseObject('Reminder'))
-    ..whereEqualTo(
-      'date',
-      {'__type': 'Date', 'iso': today.toIso8601String()},
-    );
+    ..whereEqualTo('date', DateTime(now.year, now.month, now.day));
 
   final response = await query.query();
   return response.results;
