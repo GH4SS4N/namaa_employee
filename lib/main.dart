@@ -10,6 +10,7 @@ import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
 import 'package:namaa_employee/requests/donorRequests.dart';
 import 'package:namaa_employee/welcoming%20pages/customerCreationPage.dart';
+import 'package:namaa_employee/welcoming%20pages/welcomePage.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
 import 'AccuntentPages/AccuntantCharityPage.dart';
@@ -68,7 +69,7 @@ class MyApp extends ConsumerWidget {
         data: (parse) {
           getPrograms()
               .then((value) => context.read(programsProvider).state = value);
-          return SafeArea(child: CustomerCreationPage());
+          return SafeArea(child: WelcomePagex());
         },
         loading: () =>
             Container(child: Center(child: CircularProgressIndicator())),
