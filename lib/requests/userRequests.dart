@@ -58,7 +58,7 @@ Future<ParseObject> signupEmployee(
 
 // returns either an Employee ParseObject or a Donor
 // check by value.parseClassName == "Donor"
-Future<ParseObject> signin(String phoneNumber, String password) async {
+Future<ParseObject> login(String phoneNumber, String password) async {
   var user = ParseUser(phoneNumber, password, null);
 
   var response = await user.login();
