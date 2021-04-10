@@ -29,12 +29,3 @@ Future<ParseObject> createDonation(ParseObject donor, ParseObject program,
   final response = await newDonation.save();
   return response.result;
 }
-
-Future<ParseObject> createMessage(ParseObject donor, String text) async {
-  final newMessage = ParseObject('Message')
-    ..set('donor', donor)
-    ..set('fromDonor', true)
-    ..set('text', text);
-  final response = await newMessage.save();
-  return response.result;
-}

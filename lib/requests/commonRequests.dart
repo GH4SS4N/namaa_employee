@@ -13,3 +13,20 @@ Future<List<ParseObject>> getDonationsOf(ParseObject donor) async {
   final response = await query.query();
   return response.results;
 }
+
+Future<ParseObject> createMessage(
+    ParseObject donor, String text, bool fromDonor) async {
+  final newMessage = ParseObject('Message')
+    ..set('donor', donor)
+    ..set('fromDonor', fromDonor)
+    ..set('text', text);
+  final response = await newMessage.save();
+  return response.result;
+}
+
+Future<List<ParseObject>> getMessages() async {
+  final query = QueryBuilder(ParseObject('Message'))..includeObject(['donor']);
+
+  final response = await query.query();
+  return response.results;
+}

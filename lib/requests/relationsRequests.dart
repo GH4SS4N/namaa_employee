@@ -6,10 +6,3 @@ Future<ParseObject> createAnnouncement(String text) async {
   final response = await newAnnouncement.save();
   return response.result;
 }
-
-Future<List<ParseObject>> getMessages() async {
-  final query = QueryBuilder(ParseObject('Message'))..includeObject(['donor']);
-
-  final response = await query.query();
-  return response.results;
-}
