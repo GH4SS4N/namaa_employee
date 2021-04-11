@@ -20,7 +20,8 @@ Future<ParseObject> signupDonor(
     ..set('idNumber', idNumber)
     ..set('idPicture', ParseFile(idPicture))
     ..set('user', user)
-    ..set('name', name);
+    ..set('name', name)
+    ..set('phoneNumber', phoneNumber);
 
   response = await donor.save();
 
@@ -49,7 +50,8 @@ Future<ParseObject> signupEmployee(
     ..set('formLink', formLink)
     ..set('formResultLink', formResultLink)
     ..set('branch', branch)
-    ..set('user', user);
+    ..set('user', user)
+    ..set('phoneNumber', phoneNumber);
 
   response = await employee.save();
 

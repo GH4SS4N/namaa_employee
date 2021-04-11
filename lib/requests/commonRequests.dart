@@ -14,6 +14,19 @@ Future<List<ParseObject>> getDonationsOf(ParseObject donor) async {
   return response.results;
 }
 
+Future<List<ParseObject>> getEmployees() async {
+  var response = await ParseObject('Employee').getAll();
+  return response.results;
+}
+
+Future<ParseObject> getDonor(String phoneNumber) async {
+  final query = QueryBuilder(ParseObject('Donor'))
+    ..whereEqualTo('phoneNumber', phoneNumber);
+
+  final response = await query.query();
+  return response.results[0];
+}
+
 Future<ParseObject> createMessage(
     ParseObject donor, String text, bool fromDonor) async {
   final newMessage = ParseObject('Message')
@@ -22,11 +35,4 @@ Future<ParseObject> createMessage(
     ..set('text', text);
   final response = await newMessage.save();
   return response.result;
-}
-
-Future<List<ParseObject>> getMessages() async {
-  final query = QueryBuilder(ParseObject('Message'))..includeObject(['donor']);
-
-  final response = await query.query();
-  return response.results;
 }

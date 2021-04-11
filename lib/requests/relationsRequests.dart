@@ -6,3 +6,8 @@ Future<ParseObject> createAnnouncement(String text) async {
   final response = await newAnnouncement.save();
   return response.result;
 }
+
+Future<List<ParseObject>> getMessages() async {
+  final response = await ParseObject('Message').getAll();
+  return response.results;
+}
