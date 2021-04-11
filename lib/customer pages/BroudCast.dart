@@ -11,7 +11,7 @@ class BroudCastPage extends ConsumerWidget {
   // Function x;
   // NotaficationsPage({this.x});
 
-  Future<void> _showMyDialog(context) async {
+  Future<void> _showMyDialog(context, String x) async {
     return showDialog<void>(
       context: context,
       //barrierDismissible: false, // user must tap button!
@@ -22,7 +22,7 @@ class BroudCastPage extends ConsumerWidget {
             child: ListBody(
               children: <Widget>[
                 Text(
-                  ' نص الرساله نص الرساله نص الرساله نص الرساله نص الرساله نص الرساله نص الرساله',
+                  x,
                   style: TextStyle(color: Colors.black),
                 ),
                 Text(''),
@@ -122,68 +122,68 @@ class BroudCastPage extends ConsumerWidget {
           ),
           // Text("data"),
           Expanded(
-              child: ListView.builder(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  shrinkWrap: true,
-                  itemCount: 50,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        _showMyDialog(context);
-                        //   Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => NotEdit()),
-                        //   );
-                      },
-                      child: Container(
-                        height: 86,
-                        color: gray,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: Icon(
-                                        Icons.campaign,
-                                        size: 40,
-                                        color: green,
-                                      ),
+              child: Column(
+            children: context
+                .read(announcementsProvider)
+                .state
+                .map(
+                  (reminder) => InkWell(
+                    onTap: () {
+                      _showMyDialog(context, reminder.get("text").toString());
+                    },
+                    child: Container(
+                      height: 86,
+                      color: gray,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 20),
+                                    child: Icon(
+                                      Icons.campaign,
+                                      size: 40,
+                                      color: green,
                                     ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("name"),
-                                        Text("program-time")
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Text("history")
-                                  ],
-                                ),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                          reminder.get("createdAt").toString()),
+                                      // Text("program-time")
+                                    ],
+                                  ),
+                                  Spacer(),
+                                  // Text(
+                                  //   "history",
+                                  //   style: TextStyle(color: green),
+                                  // )
+                                ],
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                height: 1,
-                                color: Colors.grey.withOpacity(0.5),
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                              height: 1,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                          )
+                        ],
                       ),
-                    );
-                  }))
+                    ),
+                  ),
+                )
+                .toList(),
+          ))
         ],
       ),
       color: Colors.black.withOpacity(0.5),

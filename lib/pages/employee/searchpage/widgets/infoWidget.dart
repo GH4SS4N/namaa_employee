@@ -55,7 +55,19 @@ class InfoWidget extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: reminderState == null
-                  ? Text("data")
+                  ? [
+                      Container(
+                          height: 86,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "لا يوجد تنبيهات",
+                                style: TextStyle(fontSize: 20, color: darkgray),
+                              ),
+                            ],
+                          ))
+                    ]
                   : reminderState
                       .map(
                         (reminder) => InkWell(
@@ -103,7 +115,7 @@ class InfoWidget extends ConsumerWidget {
                                         ),
                                         Spacer(),
                                         Text(
-                                          "history",
+                                          "createdAt",
                                           style: TextStyle(color: green),
                                         )
                                       ],
@@ -123,33 +135,6 @@ class InfoWidget extends ConsumerWidget {
                         ),
                       )
                       .toList(),
-
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Padding(
-              //       padding: const EdgeInsets.all(8.0),
-              //       child: ClipOval(
-              //         child: Container(
-              //           color: Colors.black.withOpacity(0.3),
-              //           child: IconButton(
-              //               icon: Icon(
-              //                 Icons.add,
-              //                 color: Colors.white,
-              //                 size: 30,
-              //               ),
-              //               onPressed: () {
-              //                 Navigator.push(
-              //                   context,
-              //                   MaterialPageRoute(
-              //                       builder: (context) => NotEdit()),
-              //                 );
-              //               }),
-              //         ),
-              //       ),
-              //     )
-              //   ],
-              // )
             ),
           ),
         ],

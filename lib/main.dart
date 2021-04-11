@@ -67,9 +67,9 @@ class MyApp extends ConsumerWidget {
       ),
       home: watch(connectionProvider).when(
         data: (parse) {
-          getPrograms()
-              .then((value) => context.read(programsProvider).state = value);
-          return SafeArea(child: WelcomePagex());
+          getAnnouncements().then(
+              (value) => context.read(announcementsProvider).state = value);
+          return SafeArea(child: AccuntantApp());
         },
         loading: () =>
             Container(child: Center(child: CircularProgressIndicator())),
