@@ -59,6 +59,10 @@ class Search extends ConsumerWidget {
                                 size: 50,
                               ),
                               onPressed: () {
+                                context.read(reminderProvider).state = null;
+                                context.read(donerProvider).state = null;
+                                context.read(phoneNumberProvider).state = null;
+                                context.read(nameProvider).state = null;
                                 context.read(searchStateProvider).state = 1;
                               })
                           : Container()
