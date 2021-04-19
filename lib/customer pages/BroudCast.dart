@@ -122,67 +122,71 @@ class BroudCastPage extends ConsumerWidget {
           ),
           // Text("data"),
           Expanded(
-              child: Column(
-            children: context
-                .read(announcementsProvider)
-                .state
-                .map(
-                  (reminder) => InkWell(
-                    onTap: () {
-                      _showMyDialog(context, reminder.get("text").toString());
-                    },
-                    child: Container(
-                      height: 86,
-                      color: gray,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Icon(
-                                      Icons.campaign,
-                                      size: 40,
-                                      color: green,
+              child: SingleChildScrollView(
+            child: Column(
+              children: context
+                  .read(announcementsProvider)
+                  .state
+                  .map(
+                    (reminder) => InkWell(
+                      onTap: () {
+                        _showMyDialog(context, reminder.get("text").toString());
+                      },
+                      child: Container(
+                        height: 86,
+                        color: gray,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: Icon(
+                                        Icons.campaign,
+                                        size: 40,
+                                        color: green,
+                                      ),
                                     ),
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                          reminder.get("createdAt").toString()),
-                                      // Text("program-time")
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  // Text(
-                                  //   "history",
-                                  //   style: TextStyle(color: green),
-                                  // )
-                                ],
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(reminder
+                                            .get("createdAt")
+                                            .toString()),
+                                        // Text("program-time")
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    // Text(
+                                    //   "history",
+                                    //   style: TextStyle(color: green),
+                                    // )
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Container(
-                              height: 1,
-                              color: Colors.grey.withOpacity(0.5),
-                            ),
-                          )
-                        ],
+                            Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                height: 1,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                )
-                .toList(),
+                  )
+                  .toList(),
+            ),
           ))
         ],
       ),

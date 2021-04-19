@@ -49,7 +49,7 @@ class SearchWidget extends ConsumerWidget {
 
           context.read(donerProvider).state = value[0];
           getReminders(value[0])
-              .whenComplete(() => print("getreminders"))
+              .whenComplete(() => print("getreminders = "))
               .then((value) {
             print(value.toString());
             context.read(reminderProvider).state = value;
