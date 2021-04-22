@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/SupportPages/SMassagesPage.dart';
-import 'package:namaa_employee/SupportPages/SentBroudCast.dart';
-import 'package:namaa_employee/customer%20pages/AddCharity.dart';
-import 'package:namaa_employee/customer%20pages/CharityPage.dart';
+// import 'package:namaa_employee/SupportPages/SMassagesPage.dart';
+// import 'package:namaa_employee/SupportPages/SentBroudCast.dart';
+// import 'package:namaa_employee/customer%20pages/AddCharity.dart';
+// import 'package:namaa_employee/customer%20pages/CharityPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/ServayPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notificationsPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
-import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
-import 'package:namaa_employee/requests/donorRequests.dart';
-import 'package:namaa_employee/welcoming%20pages/customerCreationPage.dart';
-import 'package:namaa_employee/welcoming%20pages/welcomePage.dart';
+// import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
+// import 'package:namaa_employee/requests/donorRequests.dart';
+// import 'package:namaa_employee/welcoming%20pages/customerCreationPage.dart';
+// import 'package:namaa_employee/welcoming%20pages/welcomePage.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import 'AccuntentPages/AccuntantCharityPage.dart';
-import 'AccuntentPages/AccuntantSearchPage.dart';
-import 'customer pages/BroudCast.dart';
+// import 'AccuntentPages/AccuntantCharityPage.dart';
+// import 'AccuntentPages/AccuntantSearchPage.dart';
+// import 'customer pages/BroudCast.dart';
 import 'drawer/ddrawer.dart';
 
 void main() {
@@ -179,314 +179,314 @@ class EmployeeApp extends ConsumerWidget {
   }
 }
 
-class CustomerApp extends ConsumerWidget {
-  Future<void> _showMyDialog(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+// class CustomerApp extends ConsumerWidget {
+//   Future<void> _showMyDialog(context) async {
+//     return showDialog<void>(
+//       context: context,
+//       barrierDismissible: false, // user must tap button!
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('AlertDialog Title'),
+//           content: SingleChildScrollView(
+//             child: ListBody(
+//               children: <Widget>[
+//                 Text('This is a demo alert dialog.'),
+//                 Text('Would you like to approve of this message?'),
+//               ],
+//             ),
+//           ),
+//           actions: <Widget>[
+//             TextButton(
+//               child: Text('Approve'),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+//   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final pageState = watch(pageStateProvider).state;
-    return watch(connectionProvider).when(
-      data: (parse) {
-        // getDonationsOf(user.donor)
-        //     .then((value) => context.read(donerProvider).state = value[0]);
-        getAnnouncements()
-            .then((value) => context.read(announcementsProvider).state = value);
-        getPrograms()
-            .then((value) => context.read(programsProvider).state = value);
-        return Scaffold(
-          key: _scaffoldKey,
-          drawer: OwnerDrawer(),
-          resizeToAvoidBottomInset: false,
-          body: pageState == 1
-              ? CharityPage()
-              : pageState == 2
-                  ? SingleChildScrollView(child: AddCharityPage())
-                  : BroudCastPage(),
-          //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-          bottomNavigationBar: BottomAppBar(
-            color: yallow,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _scaffoldKey.currentState.openDrawer();
-                    }),
-                IconButton(
-                    icon: Icon(
-                      Icons.check_circle,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      context.read(pageStateProvider).state = 1;
-                    }),
-                Container(
-                  height: 1,
-                  width: 40,
-                ),
-                //Spacer(),
-                IconButton(
-                    icon: Icon(
-                      Icons.campaign,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      context.read(pageStateProvider).state = 3;
-                    }),
+//   @override
+//   Widget build(BuildContext context, ScopedReader watch) {
+//     final pageState = watch(pageStateProvider).state;
+//     return watch(connectionProvider).when(
+//       data: (parse) {
+//         // getDonationsOf(user.donor)
+//         //     .then((value) => context.read(donerProvider).state = value[0]);
+//         getAnnouncements()
+//             .then((value) => context.read(announcementsProvider).state = value);
+//         getPrograms()
+//             .then((value) => context.read(programsProvider).state = value);
+//         return Scaffold(
+//           key: _scaffoldKey,
+//           drawer: OwnerDrawer(),
+//           resizeToAvoidBottomInset: false,
+//           body: pageState == 1
+//               ? CharityPage()
+//               : pageState == 2
+//                   ? SingleChildScrollView(child: AddCharityPage())
+//                   : BroudCastPage(),
+//           //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//           bottomNavigationBar: BottomAppBar(
+//             color: yallow,
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 IconButton(
+//                     icon: Icon(
+//                       Icons.menu,
+//                       color: Colors.white,
+//                     ),
+//                     onPressed: () {
+//                       _scaffoldKey.currentState.openDrawer();
+//                     }),
+//                 IconButton(
+//                     icon: Icon(
+//                       Icons.check_circle,
+//                       color: Colors.white,
+//                     ),
+//                     onPressed: () {
+//                       context.read(pageStateProvider).state = 1;
+//                     }),
+//                 Container(
+//                   height: 1,
+//                   width: 40,
+//                 ),
+//                 //Spacer(),
+//                 IconButton(
+//                     icon: Icon(
+//                       Icons.campaign,
+//                       color: Colors.white,
+//                     ),
+//                     onPressed: () {
+//                       context.read(pageStateProvider).state = 3;
+//                     }),
 
-                Container(
-                  height: 1,
-                  width: 40,
-                ),
-              ],
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-              backgroundColor: green,
-              child: Icon(Icons.add),
-              onPressed: () {
-                context.read(pageStateProvider).state = 2;
-              }),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-        );
-      },
-      loading: () =>
-          Container(child: Center(child: CircularProgressIndicator())),
-      error: (e, stack) {
-        return Scaffold(
-            body: Container(child: Center(child: Text(e.toString()))));
-      },
-    );
-  }
-}
+//                 Container(
+//                   height: 1,
+//                   width: 40,
+//                 ),
+//               ],
+//             ),
+//           ),
+//           floatingActionButton: FloatingActionButton(
+//               backgroundColor: green,
+//               child: Icon(Icons.add),
+//               onPressed: () {
+//                 context.read(pageStateProvider).state = 2;
+//               }),
+//           floatingActionButtonLocation:
+//               FloatingActionButtonLocation.centerDocked,
+//         );
+//       },
+//       loading: () =>
+//           Container(child: Center(child: CircularProgressIndicator())),
+//       error: (e, stack) {
+//         return Scaffold(
+//             body: Container(child: Center(child: Text(e.toString()))));
+//       },
+//     );
+//   }
+// }
 
-class AccuntantApp extends ConsumerWidget {
-  Future<void> _showMyDialog(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+// class AccuntantApp extends ConsumerWidget {
+//   Future<void> _showMyDialog(context) async {
+//     return showDialog<void>(
+//       context: context,
+//       barrierDismissible: false, // user must tap button!
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('AlertDialog Title'),
+//           content: SingleChildScrollView(
+//             child: ListBody(
+//               children: <Widget>[
+//                 Text('This is a demo alert dialog.'),
+//                 Text('Would you like to approve of this message?'),
+//               ],
+//             ),
+//           ),
+//           actions: <Widget>[
+//             TextButton(
+//               child: Text('Approve'),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+//   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final pageState = watch(pageStateProvider).state;
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: OwnerDrawer(),
-      resizeToAvoidBottomInset: false,
-      body: pageState == 1
-          ? AccuntantCharityPage()
-          : pageState == 2
-              ? SingleChildScrollView(child: AccuntantSearchPage())
-              : BroudCastPage(),
-      //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-      bottomNavigationBar: BottomAppBar(
-        color: yallow,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  _scaffoldKey.currentState.openDrawer();
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.history_rounded,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  context.read(pageStateProvider).state = 1;
-                }),
-            Container(
-              height: 1,
-              width: 40,
-            ),
-            //Spacer(),
-            // Container(
-            //   height: 1,
-            //   width: 40,
-            // ),
-            IconButton(
-                icon: Icon(
-                  Icons.campaign,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  context.read(pageStateProvider).state = 3;
-                }),
+//   @override
+//   Widget build(BuildContext context, ScopedReader watch) {
+//     final pageState = watch(pageStateProvider).state;
+//     return Scaffold(
+//       key: _scaffoldKey,
+//       drawer: OwnerDrawer(),
+//       resizeToAvoidBottomInset: false,
+//       body: pageState == 1
+//           ? AccuntantCharityPage()
+//           : pageState == 2
+//               ? SingleChildScrollView(child: AccuntantSearchPage())
+//               : BroudCastPage(),
+//       //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//       bottomNavigationBar: BottomAppBar(
+//         color: yallow,
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.menu,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   _scaffoldKey.currentState.openDrawer();
+//                 }),
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.history_rounded,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   context.read(pageStateProvider).state = 1;
+//                 }),
+//             Container(
+//               height: 1,
+//               width: 40,
+//             ),
+//             //Spacer(),
+//             // Container(
+//             //   height: 1,
+//             //   width: 40,
+//             // ),
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.campaign,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   context.read(pageStateProvider).state = 3;
+//                 }),
 
-            Container(
-              height: 1,
-              width: 40,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: green,
-          child: Icon(Icons.search),
-          onPressed: () {
-            context.read(pageStateProvider).state = 2;
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-}
+//             Container(
+//               height: 1,
+//               width: 40,
+//             ),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//           backgroundColor: green,
+//           child: Icon(Icons.search),
+//           onPressed: () {
+//             context.read(pageStateProvider).state = 2;
+//           }),
+//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//     );
+//   }
+// }
 
-class SupportApp extends ConsumerWidget {
-  Future<void> _showMyDialog(context) async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('AlertDialog Title'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+// class SupportApp extends ConsumerWidget {
+//   Future<void> _showMyDialog(context) async {
+//     return showDialog<void>(
+//       context: context,
+//       barrierDismissible: false, // user must tap button!
+//       builder: (BuildContext context) {
+//         return AlertDialog(
+//           title: Text('AlertDialog Title'),
+//           content: SingleChildScrollView(
+//             child: ListBody(
+//               children: <Widget>[
+//                 Text('This is a demo alert dialog.'),
+//                 Text('Would you like to approve of this message?'),
+//               ],
+//             ),
+//           ),
+//           actions: <Widget>[
+//             TextButton(
+//               child: Text('Approve'),
+//               onPressed: () {
+//                 Navigator.of(context).pop();
+//               },
+//             ),
+//           ],
+//         );
+//       },
+//     );
+//   }
 
-  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+//   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  @override
-  Widget build(BuildContext context, ScopedReader watch) {
-    final pageState = watch(pageStateProvider).state;
-    return Scaffold(
-      key: _scaffoldKey,
-      drawer: OwnerDrawer(),
-      resizeToAvoidBottomInset: false,
-      body: pageState == 1
-          ? SMassagesPage()
-          : pageState == 2
-              ? SingleChildScrollView(child: SendBroudCastPage())
-              : BroudCastPage(),
-      //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-      bottomNavigationBar: BottomAppBar(
-        color: yallow,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            IconButton(
-                icon: Icon(
-                  Icons.menu,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  _scaffoldKey.currentState.openDrawer();
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.mail_outline,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  context.read(pageStateProvider).state = 1;
-                }),
-            Container(
-              height: 1,
-              width: 40,
-            ),
-            //Spacer(),
-            IconButton(
-                icon: Icon(
-                  Icons.campaign,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  context.read(pageStateProvider).state = 3;
-                }),
+//   @override
+//   Widget build(BuildContext context, ScopedReader watch) {
+//     final pageState = watch(pageStateProvider).state;
+//     return Scaffold(
+//       key: _scaffoldKey,
+//       drawer: OwnerDrawer(),
+//       resizeToAvoidBottomInset: false,
+//       body: pageState == 1
+//           ? SMassagesPage()
+//           : pageState == 2
+//               ? SingleChildScrollView(child: SendBroudCastPage())
+//               : BroudCastPage(),
+//       //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//       bottomNavigationBar: BottomAppBar(
+//         color: yallow,
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//           children: [
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.menu,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   _scaffoldKey.currentState.openDrawer();
+//                 }),
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.mail_outline,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   context.read(pageStateProvider).state = 1;
+//                 }),
+//             Container(
+//               height: 1,
+//               width: 40,
+//             ),
+//             //Spacer(),
+//             IconButton(
+//                 icon: Icon(
+//                   Icons.campaign,
+//                   color: Colors.white,
+//                 ),
+//                 onPressed: () {
+//                   context.read(pageStateProvider).state = 3;
+//                 }),
 
-            Container(
-              height: 1,
-              width: 40,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-          backgroundColor: green,
-          child: Icon(Icons.add),
-          onPressed: () {
-            context.read(pageStateProvider).state = 2;
-          }),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-    );
-  }
-}
+//             Container(
+//               height: 1,
+//               width: 40,
+//             ),
+//           ],
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//           backgroundColor: green,
+//           child: Icon(Icons.add),
+//           onPressed: () {
+//             context.read(pageStateProvider).state = 2;
+//           }),
+//       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//     );
+//   }
+// }

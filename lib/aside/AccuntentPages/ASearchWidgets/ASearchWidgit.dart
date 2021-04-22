@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/AccuntentPages/AccuntantSearchPage.dart';
-import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
+import '../AccuntantSearchPage.dart';
+//import '../../main.dart';
 
 //import '../search.dart';
 

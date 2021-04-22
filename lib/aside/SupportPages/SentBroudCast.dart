@@ -4,7 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/nameWidget.dart';
 import 'package:namaa_employee/requests/relationsRequests.dart';
 
-import '../main.dart';
+import '../../main.dart';
+
+//import '../main.dart';
 
 class SendBroudCastPage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();

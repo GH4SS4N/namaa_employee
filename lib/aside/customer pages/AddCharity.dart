@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:namaa_employee/customer%20pages/widget/CDropdownMenu.dart';
-import 'package:namaa_employee/requests/donorRequests.dart';
+import 'package:namaa_employee/aside/customer%20pages/widget/CDropdownMenu.dart';
+// import 'package:namaa_employee/customer%20pages/widget/CDropdownMenu.dart';
+// import 'package:namaa_employee/requests/donorRequests.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+
+import '../../main.dart';
 //import 'package:namaa_employee/pages/employee/searchpage/widgets/nameWidget.dart';
 
-import '../main.dart';
+//import '../main.dart';
 
 class AddCharityPage extends ConsumerWidget {
   ParseObject donor;

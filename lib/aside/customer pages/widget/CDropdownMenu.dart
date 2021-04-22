@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
+
+//import '../../main.dart';
 
 // final storeTypeSelectedProvider = StateProvider<String>((ref) => null);
 final countrySelectedProvider = StateProvider<String>((ref) => "asdf");
