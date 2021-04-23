@@ -25,7 +25,8 @@ class NotEdit extends ConsumerWidget {
 
   void _actionperformed(BuildContext context) {
     if (_formKey.currentState.validate()) {
-      createReminder(,
+      createReminder(
+              context.read(userProvider).state,
               context.read(donerProvider).state,
               donerNot,
               massage,

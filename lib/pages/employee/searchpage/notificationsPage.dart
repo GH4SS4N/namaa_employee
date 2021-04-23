@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
+import 'package:namaa_employee/requests/reminderRequests.dart';
+import 'package:parse_server_sdk/parse_server_sdk.dart';
 // import 'package:namaa_employee/pages/searchpage/search.dart';
 
 //import '../main.dart';
@@ -11,7 +13,7 @@ class NotaficationsPage extends ConsumerWidget {
   // Function x;
   // NotaficationsPage({this.x});
 
-  Future<void> _showMyDialog(context) async {
+  Future<void> _showMyDialog(context, ParseObject reminder) async {
     return showDialog<void>(
       context: context,
       //barrierDismissible: false, // user must tap button!
@@ -23,6 +25,7 @@ class NotaficationsPage extends ConsumerWidget {
               children: <Widget>[
                 Container(
                   child: Row(
+                    mainAxisSize: MainAxisSize.max,
                     children: [
                       Icon(
                         Icons.person,
@@ -35,7 +38,7 @@ class NotaficationsPage extends ConsumerWidget {
                             "غسان احمد",
                             style: TextStyle(fontSize: 20),
                           ),
-                          Text("date")
+                          Text("phone number")
                         ],
                       )
                     ],
@@ -48,11 +51,11 @@ class NotaficationsPage extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'نص التمبيه',
+                          "نص التمبيه",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                         Text(
-                          'This is a demo alert dialog.',
+                          reminder.get("note").toString(),
                           style: TextStyle(color: Colors.white),
                         ),
                         Text(""),
@@ -61,7 +64,7 @@ class NotaficationsPage extends ConsumerWidget {
                           // mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Spacer(),
-                            Text("2021/12/2"),
+                            Text(reminder.get("createdAt").toString()),
                           ],
                         )
                       ],
@@ -71,7 +74,7 @@ class NotaficationsPage extends ConsumerWidget {
                   style: TextStyle(color: Colors.black, fontSize: 20),
                 ),
                 Text(
-                  'This is a demo alert dialog.',
+                  reminder.get("reply").toString(),
                   style: TextStyle(color: Colors.black),
                 ),
                 Text(''),
@@ -108,6 +111,8 @@ class NotaficationsPage extends ConsumerWidget {
                           IconButton(
                               icon: Icon(Icons.edit),
                               onPressed: () {
+                                context.read(chosinReminderProvider).state =
+                                    reminder;
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -138,7 +143,9 @@ class NotaficationsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
+    final watchh = watch(todayReminderProvider).state;
     return Container(
+      color: gray,
       child: Stack(
         children: [
           Column(
@@ -148,105 +155,142 @@ class NotaficationsPage extends ConsumerWidget {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
                   color: gray,
-                  child: Row(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Text(
+                        "التنبيهات",
+                        style: TextStyle(fontSize: 45, color: green),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "التنبيهات",
-                            style: TextStyle(fontSize: 45, color: green),
+                            "اليوم   ",
+                            style: TextStyle(fontSize: 20, color: darkgray),
                           ),
-                          Row(
-                            //mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "اليوم   ",
-                                style: TextStyle(fontSize: 20, color: darkgray),
-                              ),
-                              Text(
-                                "20/12/2021  ",
-                                style: TextStyle(fontSize: 20, color: darkgray),
-                              ),
-                            ],
-                          )
+                          Text(
+                            "20/12/2021  ",
+                            style: TextStyle(fontSize: 20, color: darkgray),
+                          ),
                         ],
-                      ),
+                      )
                     ],
                   ),
                 ),
               ),
               Container(
-                height: 0.5,
+                width: double.infinity,
+                height: 1,
                 color: Colors.grey.withOpacity(0.0),
               ),
               // Text("data"),
-              Expanded(
-                  child: ListView.builder(
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                      shrinkWrap: true,
-                      itemCount: 50,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            _showMyDialog(context);
-                            //   Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => NotEdit()),
-                            //   );
-                          },
-                          child: Container(
-                            height: 86,
-                            color: gray,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 20),
-                                          child: Icon(
-                                            Icons.notifications,
-                                            size: 40,
-                                            color: green,
+              watch(connectionProvider).when(
+                data: (parse) {
+                  getRemindersToday(context.read(userProvider).state)
+                      .then((value) {
+                    context.read(todayReminderProvider).state = value;
+                  });
+                  return Expanded(
+                      child: RefreshIndicator(
+                    onRefresh: () async {
+                      getRemindersToday(context.read(userProvider).state).then(
+                          (value) => context.read(todayReminderProvider).state =
+                              value);
+                      print(
+                          context.read(todayReminderProvider).state.toString());
+                    },
+                    child: context.read(todayReminderProvider).state == null
+                        ? ListView(children: [
+                            Card(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(child: Text("nothing")),
+                              ),
+                            ),
+                          ])
+                        : ListView.builder(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                            shrinkWrap: true,
+                            itemCount: context
+                                .read(todayReminderProvider)
+                                .state
+                                .length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  _showMyDialog(context, watchh[index]);
+                                },
+                                child: Container(
+                                  height: 86,
+                                  color: gray,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              20, 0, 0, 0),
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 20),
+                                                child: Icon(
+                                                  Icons.notifications,
+                                                  size: 40,
+                                                  color: green,
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(context
+                                                      .read(
+                                                          todayReminderProvider)
+                                                      .state[index]
+                                                      .get("name")
+                                                      .toString()),
+                                                  Text("program-time")
+                                                ],
+                                              ),
+                                              Spacer(),
+                                              Text(context
+                                                  .read(todayReminderProvider)
+                                                  .state[index]
+                                                  .get("createdAt")
+                                                  .toString())
+                                            ],
                                           ),
                                         ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("name"),
-                                            Text("program-time")
-                                          ],
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Container(
+                                          height: 1,
+                                          color: Colors.grey.withOpacity(0.5),
                                         ),
-                                        Spacer(),
-                                        Text("history")
-                                      ],
-                                    ),
+                                      )
+                                    ],
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Container(
-                                    height: 1,
-                                    color: Colors.grey.withOpacity(0.5),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      }))
+                              );
+                            }),
+                  ));
+                },
+                loading: () => Container(
+                    child: Center(child: CircularProgressIndicator())),
+                error: (e, stack) {
+                  return Scaffold(
+                      body:
+                          Container(child: Center(child: Text(e.toString()))));
+                },
+              ),
             ],
           ),
           // Material(
@@ -277,7 +321,6 @@ class NotaficationsPage extends ConsumerWidget {
           // ),
         ],
       ),
-      color: Colors.black.withOpacity(0.5),
     );
   }
 }

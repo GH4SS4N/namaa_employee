@@ -46,7 +46,9 @@ class ServayPage extends ConsumerWidget {
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(
               color: green,
-              onPressed: () {},
+              onPressed: () {
+                print(context.read(userProvider).state);
+              },
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

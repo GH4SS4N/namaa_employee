@@ -48,7 +48,14 @@ final programsProvider = StateProvider<List<ParseObject>>((ref) => null);
 
 final announcementsProvider = StateProvider<List<ParseObject>>((ref) => null);
 
+final todayReminderProvider = StateProvider<List<ParseObject>>((ref) => null);
+
 final getDonationsProvider = StateProvider<List<ParseObject>>((ref) => null);
+
+final userProvider = StateProvider<ParseUser>((ref) {
+  ParseUser user;
+  return user;
+});
 
 class MyApp extends ConsumerWidget {
   @override
