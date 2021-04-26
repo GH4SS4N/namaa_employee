@@ -10,16 +10,11 @@ import '../../../main.dart';
 import 'notEdit.dart';
 
 class NotaficationsPage extends ConsumerWidget {
-  // Function x;
-  // NotaficationsPage({this.x});
-
   Future<void> _showMyDialog(context, ParseObject reminder) async {
     return showDialog<void>(
       context: context,
-      //barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          //title: Text('AlertDialog Title'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -128,22 +123,18 @@ class NotaficationsPage extends ConsumerWidget {
               ],
             ),
           ),
-          // actions: <Widget>[
-          //   TextButton(
-          //     child: Text('Approve'),
-          //     onPressed: () {
-          //       Navigator.of(context).pop();
-          //     },
-          //   ),
-          // ],
         );
       },
     );
   }
 
+  //List doners;
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      new GlobalKey<RefreshIndicatorState>();
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final watchh = watch(todayReminderProvider).state;
+    final todayReminders = watch(todayReminderProvider).state;
     return Container(
       color: gray,
       child: Stack(
@@ -167,11 +158,11 @@ class NotaficationsPage extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "اليوم   ",
+                            "اليوم",
                             style: TextStyle(fontSize: 20, color: darkgray),
                           ),
                           Text(
-                            "20/12/2021  ",
+                            "20/12/2021",
                             style: TextStyle(fontSize: 20, color: darkgray),
                           ),
                         ],
@@ -188,19 +179,35 @@ class NotaficationsPage extends ConsumerWidget {
               // Text("data"),
               watch(connectionProvider).when(
                 data: (parse) {
-                  getRemindersToday(context.read(userProvider).state)
-                      .then((value) {
-                    context.read(todayReminderProvider).state = value;
-                  });
                   return Expanded(
                       child: RefreshIndicator(
                     onRefresh: () async {
-                      getRemindersToday(context.read(userProvider).state).then(
-                          (value) => context.read(todayReminderProvider).state =
-                              value);
-                      print(
-                          context.read(todayReminderProvider).state.toString());
+                      getRemindersToday(context.read(userProvider).state)
+                          .then((value) {
+                        print(value.toString());
+                        //TODO: Saud ,, i want to get the donors to use their information.
+                        //
+                        // if (value != null) {
+                        //   print("in the if statment");
+                        //   int _x = 0;
+                        //   for (var item in value) {
+                        //     print("in the for loop statment" +
+                        //         "==========" +
+                        //         item.toString());
+                        //     ParseObject("ReminderDonor")
+                        //         .getObject(item.get("donor"))
+                        //         .then((value) {
+                        //       //  doners[_x] = value[_x];
+                        //       // print(value.results);
+                        //     });
+                        //   }
+                        //   //print("doners ==== " + doners.toString());
+                        // }
+                        //print(doners.toString());
+                        context.read(todayReminderProvider).state = value;
+                      });
                     },
+                    key: _refreshIndicatorKey,
                     child: context.read(todayReminderProvider).state == null
                         ? ListView(children: [
                             Card(
@@ -220,7 +227,7 @@ class NotaficationsPage extends ConsumerWidget {
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () {
-                                  _showMyDialog(context, watchh[index]);
+                                  _showMyDialog(context, todayReminders[index]);
                                 },
                                 child: Container(
                                   height: 86,

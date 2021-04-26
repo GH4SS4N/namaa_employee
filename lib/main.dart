@@ -31,15 +31,14 @@ const appId = "OzrokmU22cgyApcIL7XMkNvADiuxuro1B5SRJ8Yy";
 const serverUrl = "https://parseapi.back4app.com/";
 const clientKey = "yQXy4KHzCutNlZOtToTsRU7AsHXqMts6oPaloj58";
 
-final pageStateProvider = StateProvider<int>((ref) {
-  return 2;
-});
+final pageStateProvider = StateProvider<int>((ref) => 2);
 
 final connectionProvider = FutureProvider<Parse>(
   (ref) async => await Parse().initialize(
     appId,
     serverUrl,
     clientKey: clientKey,
+    debug: true,
     //fileDirectory: (await getExternalStorageDirectory()).path,
   ),
 );
@@ -52,10 +51,7 @@ final todayReminderProvider = StateProvider<List<ParseObject>>((ref) => null);
 
 final getDonationsProvider = StateProvider<List<ParseObject>>((ref) => null);
 
-final userProvider = StateProvider<ParseUser>((ref) {
-  ParseUser user;
-  return user;
-});
+final userProvider = StateProvider<ParseUser>((ref) => null);
 
 class MyApp extends ConsumerWidget {
   @override

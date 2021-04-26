@@ -21,7 +21,9 @@ class NameWidget extends ConsumerWidget {
           .whenComplete(() => print("object++"))
           .then((value) {
         context.read(nameProvider).state = name;
-        context.read(searchStateProvider).state = 3;
+        getReminderDonors(context.read(phoneNumberProvider).state)
+            .then((value) => context.read(donerProvider).state = value[0]);
+        print(context.read(donerProvider).state.toString());
       });
     }
   }

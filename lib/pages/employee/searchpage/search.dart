@@ -26,6 +26,7 @@ class Search extends ConsumerWidget {
   Widget build(BuildContext context, ScopedReader watch) {
     final searchState = watch(searchStateProvider).state;
     final phoneNum = watch(phoneNumberProvider).state;
+    final donor = watch(donerProvider).state;
     return Container(
       width: double.infinity,
       child: Column(
@@ -44,15 +45,16 @@ class Search extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                         child: Text(
-                          searchState == 1
+                          context.read(phoneNumberProvider).state == ""
                               ? "البحث"
-                              : searchState == 2
+                              : context.read(phoneNumberProvider).state != "" &&
+                                      context.read(donerProvider).state == null
                                   ? "اضافه متبرع"
                                   : "صفحة متبرع",
                           style: TextStyle(fontSize: 45, color: green),
                         ),
                       ),
-                      searchState != 1
+                      context.read(phoneNumberProvider).state != ""
                           ? IconButton(
                               icon: Icon(
                                 Icons.arrow_forward,
@@ -61,8 +63,8 @@ class Search extends ConsumerWidget {
                               onPressed: () {
                                 context.read(reminderProvider).state = null;
                                 context.read(donerProvider).state = null;
-                                context.read(phoneNumberProvider).state = null;
-                                context.read(nameProvider).state = null;
+                                context.read(phoneNumberProvider).state = "";
+                                context.read(nameProvider).state = "";
                                 context.read(searchStateProvider).state = 1;
                               })
                           : Container()
@@ -72,13 +74,14 @@ class Search extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                          child: searchState == 1
+                          child: context.read(phoneNumberProvider).state == ""
                               ? Icon(
                                   Icons.person_search,
                                   color: green,
                                   size: 100,
                                 )
-                              : searchState == 2
+                              : context.read(phoneNumberProvider).state != "" &&
+                                      context.read(donerProvider).state == null
                                   ? Icon(
                                       Icons.person_add,
                                       color: green,
@@ -91,10 +94,10 @@ class Search extends ConsumerWidget {
                                     )),
                     ],
                   ),
-                  searchState == 3
+                  context.read(nameProvider).state != ""
                       ? Text(context.read(nameProvider).state)
                       : Container(),
-                  searchState == 3 || searchState == 2
+                  context.read(phoneNumberProvider).state != ""
                       ? Text(context.read(phoneNumberProvider).state)
                       : Container()
                 ],
@@ -103,9 +106,9 @@ class Search extends ConsumerWidget {
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-            searchState == 1
+            context.read(phoneNumberProvider).state == ""
                 ? SearchWidget()
-                : searchState == 2
+                : context.read(donerProvider).state == null
                     ? NameWidget()
                     : InfoWidget()
           ]),

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notEdit.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
 
 import '../../../../main.dart';
-import '../search.dart';
+//import '../search.dart';
 
 class InfoWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    final searchState = watch(searchStateProvider).state;
+    //final searchState = watch(searchStateProvider).state;
     final reminderState = watch(reminderProvider).state;
 
     return Container(
