@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:namaa_employee/pages/employee/searchpage/ServayPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notificationsPage.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
+import 'package:namaa_employee/welcoming%20pages/welcomePage.dart';
 // import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
 // import 'package:namaa_employee/requests/donorRequests.dart';
 // import 'package:namaa_employee/welcoming%20pages/customerCreationPage.dart';
@@ -17,6 +18,8 @@ import 'package:parse_server_sdk/parse_server_sdk.dart';
 // import 'AccuntentPages/AccuntantSearchPage.dart';
 // import 'customer pages/BroudCast.dart';
 import 'drawer/ddrawer.dart';
+//import 'globals.dart';
+//import 'globals.dart' as globals;
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -53,6 +56,8 @@ final getDonationsProvider = StateProvider<List<ParseObject>>((ref) => null);
 
 final userProvider = StateProvider<ParseUser>((ref) => null);
 
+//final global ParseUser user;
+
 class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
@@ -72,7 +77,10 @@ class MyApp extends ConsumerWidget {
         data: (parse) {
           // getAnnouncements().then(
           //     (value) => context.read(announcementsProvider).state = value);
-          return SafeArea(child: EmployeeApp());
+          return SafeArea(
+              child: context.read(userProvider).state == null
+                  ? WelcomePagex()
+                  : EmployeeApp());
         },
         loading: () =>
             Container(child: Center(child: CircularProgressIndicator())),

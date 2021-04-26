@@ -2,15 +2,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:namaa_employee/requests/userRequests.dart';
 import 'package:namaa_employee/welcoming%20pages/welcomePage.dart';
 
 import '../main.dart';
 
 class LoginPage extends ConsumerWidget {
   final _formKey = GlobalKey<FormState>();
+  String phoneNumber;
+  String password;
+
+  Future<void> _showMyDialog(context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('AlertDialog Title'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This is a demo alert dialog.'),
+                Text('Would you like to approve of this message?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Approve'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   void _actionperformed(BuildContext context) {
     if (_formKey.currentState.validate()) {
+      login(phoneNumber, password).then((value) {
+        if (value != null) {
+          context.read(userProvider).state = value;
+        } else {
+          _showMyDialog(context);
+        }
+      });
+      print(context.read(userProvider).state.toString());
       //createDonation(donor, program, wireNumber, amount, note);
     }
   }
@@ -50,6 +89,8 @@ class LoginPage extends ConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 child: new TextFormField(
+                  maxLength: 10,
+                  maxLengthEnforced: true,
                   decoration: new InputDecoration(
                     suffixIcon: Icon(Icons.phone_android),
                     labelText: "رقم الجوال",
@@ -61,12 +102,13 @@ class LoginPage extends ConsumerWidget {
                     //fillColor: Colors.green
                   ),
                   validator: (val) {
-                    if (val.length == 0) {
+                    if (val.length <= 9) {
                       return "Email cannot be empty";
                     } else {
                       return null;
                     }
                   },
+                  onChanged: (value) => phoneNumber = value,
                   inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                   keyboardType: TextInputType.number,
                   style: new TextStyle(
@@ -92,6 +134,7 @@ class LoginPage extends ConsumerWidget {
                       val.length < 6 ? 'Password too short.' : null,
                   // onSaved: (val) => _password = val,
                   // obscureText: _obscureText,
+                  onChanged: (value) => password = value,
                 ),
               ),
               Padding(

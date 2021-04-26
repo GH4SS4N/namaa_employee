@@ -287,6 +287,8 @@ class NotEdit extends ConsumerWidget {
                                 height: 40,
                                 onPressed: () {
                                   _actionperformed(context);
+                                  context.read(chosinReminderProvider).state =
+                                      null;
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -310,6 +312,8 @@ class NotEdit extends ConsumerWidget {
                               FlatButton(
                                 height: 40,
                                 onPressed: () {
+                                  context.read(chosinReminderProvider).state =
+                                      null;
                                   Navigator.pop(context);
                                 },
                                 child: Padding(
