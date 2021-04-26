@@ -22,7 +22,10 @@ class NameWidget extends ConsumerWidget {
           .then((value) {
         context.read(nameProvider).state = name;
         getReminderDonors(context.read(phoneNumberProvider).state)
-            .then((value) => context.read(donerProvider).state = value[0]);
+            .then((value) {
+          context.read(donerProvider).state = value[0];
+          context.read(searchStateProvider).state = 3;
+        });
         print(context.read(donerProvider).state.toString());
       });
     }

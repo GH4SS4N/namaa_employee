@@ -106,9 +106,9 @@ class Search extends ConsumerWidget {
 
             //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-            context.read(phoneNumberProvider).state == ""
+            context.read(searchStateProvider).state == 1
                 ? SearchWidget()
-                : context.read(donerProvider).state == null
+                : context.read(searchStateProvider).state == 2
                     ? NameWidget()
                     : InfoWidget()
           ]),

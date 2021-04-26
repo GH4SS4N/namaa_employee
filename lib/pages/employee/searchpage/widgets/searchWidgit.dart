@@ -19,7 +19,9 @@ final donerProvider = StateProvider<ParseObject>((ref) {
   return null;
 });
 
-final reminderProvider = StateProvider<List<ParseObject>>((ref) => null);
+final reminderProvider = StateProvider<List<ParseObject>>((ref) {
+  return null;
+});
 
 final nameProvider = StateProvider<String>((ref) {
   return "";
@@ -40,7 +42,7 @@ class SearchWidget extends ConsumerWidget {
         if (value.toString() == "null") {
           print("reminders respons is === " + value.toString());
           context.read(phoneNumberProvider).state = phoneNumber;
-          //context.read(searchStateProvider).state = 2;
+          context.read(searchStateProvider).state = 2;
         } else {
           context.read(phoneNumberProvider).state = phoneNumber;
           context.read(nameProvider).state = value[0].get("name");

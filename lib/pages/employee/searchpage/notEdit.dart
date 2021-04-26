@@ -215,14 +215,18 @@ class NotEdit extends ConsumerWidget {
                                 //fillColor: Colors.green
                               ),
                               validator: (val) {
-                                if (val.length == 0) {
+                                if (val.isEmpty) {
                                   return "Email cannot be empty";
                                 } else {
                                   return null;
                                 }
                               },
-                              onChanged: (val) {
-                                donerNot = val;
+                              onSaved: (val) {
+                                if (val == null) {
+                                  donerNot = _reminder.get("note");
+                                } else {
+                                  donerNot = val;
+                                }
                               },
                               // inputFormatters: [
                               //   WhitelistingTextInputFormatter.digitsOnly
@@ -254,14 +258,18 @@ class NotEdit extends ConsumerWidget {
                                 //fillColor: Colors.green
                               ),
                               validator: (val) {
-                                if (val.length == 0) {
+                                if (val.isEmpty) {
                                   return "Email cannot be empty";
                                 } else {
                                   return null;
                                 }
                               },
-                              onChanged: (val) {
-                                massage = val;
+                              onSaved: (val) {
+                                if (val == null) {
+                                  massage = _reminder.get("reply");
+                                } else {
+                                  massage = val;
+                                }
                               },
                               // inputFormatters: [
                               //   WhitelistingTextInputFormatter.digitsOnly
