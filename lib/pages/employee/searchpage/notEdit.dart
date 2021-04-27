@@ -221,12 +221,12 @@ class NotEdit extends ConsumerWidget {
                                   return null;
                                 }
                               },
-                              onSaved: (val) {
-                                if (val == null) {
-                                  donerNot = _reminder.get("note");
-                                } else {
-                                  donerNot = val;
-                                }
+                              onChanged: (val) {
+                                // if (val == null) {
+                                //   donerNot = _reminder.get("note");
+                                // } else {
+                                donerNot = val;
+                                // }
                               },
                               // inputFormatters: [
                               //   WhitelistingTextInputFormatter.digitsOnly
@@ -264,12 +264,12 @@ class NotEdit extends ConsumerWidget {
                                   return null;
                                 }
                               },
-                              onSaved: (val) {
-                                if (val == null) {
-                                  massage = _reminder.get("reply");
-                                } else {
-                                  massage = val;
-                                }
+                              onChanged: (val) {
+                                // if (val == null) {
+                                //   massage = _reminder.get("reply");
+                                // } else {
+                                massage = val;
+                                //  }
                               },
                               // inputFormatters: [
                               //   WhitelistingTextInputFormatter.digitsOnly

@@ -42,12 +42,16 @@ class LoginPage extends ConsumerWidget {
 
   void _actionperformed(BuildContext context) {
     if (_formKey.currentState.validate()) {
-      login(phoneNumber, password).then((value) {
-        if (value != null) {
-          context.read(userProvider).state = value;
-        } else {
-          _showMyDialog(context);
-        }
+      login(phoneNumber, password).then(
+        (value) {
+          if (value != null) {
+            context.read(userProvider).state = value;
+          } else {
+            _showMyDialog(context);
+          }
+        },
+      ).catchError((e) {
+        _showMyDialog(context);
       });
       print(context.read(userProvider).state.toString());
       //createDonation(donor, program, wireNumber, amount, note);

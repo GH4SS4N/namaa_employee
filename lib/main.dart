@@ -78,7 +78,7 @@ class MyApp extends ConsumerWidget {
           // getAnnouncements().then(
           //     (value) => context.read(announcementsProvider).state = value);
           return SafeArea(
-              child: context.read(userProvider).state == null
+              child: context.read(userProvider).state != null
                   ? WelcomePagex()
                   : EmployeeApp());
         },
@@ -127,15 +127,26 @@ class EmployeeApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     final pageState = watch(pageStateProvider).state;
+
+    Widget body = NotaficationsPage();
+
+    switch (pageState) {
+      case 1:
+        print('oh yeah');
+        updateReminders(context);
+        break;
+      case 2:
+        body = SingleChildScrollView(child: Search());
+        break;
+      default:
+        body = SingleChildScrollView(child: ServayPage());
+    }
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: OwnerDrawer(),
       resizeToAvoidBottomInset: false,
-      body: pageState == 1
-          ? NotaficationsPage()
-          : pageState == 2
-              ? SingleChildScrollView(child: Search())
-              : SingleChildScrollView(child: ServayPage()),
+      body: body,
       //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
       bottomNavigationBar: BottomAppBar(
         color: yallow,
