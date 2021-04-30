@@ -4,6 +4,7 @@ import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
 import 'package:namaa_employee/requests/reminderRequests.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
+import 'package:intl/intl.dart';
 
 import '../../../main.dart';
 
@@ -22,6 +23,7 @@ class NotEdit extends ConsumerWidget {
   String donerNot;
   String massage;
   final _formKey = GlobalKey<FormState>();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
 
   void _actionperformed(BuildContext context) {
     if (_formKey.currentState.validate()) {
@@ -133,9 +135,9 @@ class NotEdit extends ConsumerWidget {
                                 TextFormField(
                                   decoration: new InputDecoration(
                                     suffixIcon: Icon(Icons.calendar_today),
-                                    labelText: context
-                                        .read(dateProvider)
-                                        .state
+                                    labelText: formatter
+                                        .format(
+                                            context.read(dateProvider).state)
                                         .toString(),
                                     fillColor: Colors.white,
                                     border: new OutlineInputBorder(
@@ -145,16 +147,6 @@ class NotEdit extends ConsumerWidget {
                                     ),
                                     //fillColor: Colors.green
                                   ),
-                                  // validator: (val) {
-                                  //   if (val.length == 0) {
-                                  //     return "Email cannot be empty";
-                                  //   } else {
-                                  //     return null;
-                                  //   }
-                                  // },
-                                  // inputFormatters: [
-                                  //   WhitelistingTextInputFormatter.digitsOnly
-                                  // ],
                                   keyboardType: TextInputType.name,
                                   style: new TextStyle(
                                     fontFamily: "Poppins",
@@ -285,11 +277,17 @@ class NotEdit extends ConsumerWidget {
                             children: [
                               FlatButton(
                                 height: 40,
-                                onPressed: () {
-                                  _actionperformed(context);
-                                  context.read(chosinReminderProvider).state =
-                                      null;
-                                },
+                                onPressed: context
+                                            .read(chosinReminderProvider)
+                                            .state ==
+                                        null
+                                    ? () {
+                                        _actionperformed(context);
+                                        context
+                                            .read(chosinReminderProvider)
+                                            .state = null;
+                                      }
+                                    : null,
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 20),

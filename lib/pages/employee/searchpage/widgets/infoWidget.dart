@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:namaa_employee/pages/employee/searchpage/notEdit.dart';
 import 'package:namaa_employee/pages/employee/searchpage/widgets/searchWidgit.dart';
 
@@ -8,6 +9,7 @@ import '../../../../main.dart';
 //import '../search.dart';
 
 class InfoWidget extends ConsumerWidget {
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     //final searchState = watch(searchStateProvider).state;
@@ -107,15 +109,17 @@ class InfoWidget extends ConsumerWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(reminder
-                                                .get("date")
+                                            Text(formatter
+                                                .format(reminder.get("date"))
                                                 .toString()),
                                             Text("program-time")
                                           ],
                                         ),
                                         Spacer(),
                                         Text(
-                                          "createdAt",
+                                          formatter
+                                              .format(reminder.get("createdAt"))
+                                              .toString(),
                                           style: TextStyle(color: green),
                                         )
                                       ],

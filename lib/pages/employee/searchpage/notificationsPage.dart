@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:namaa_employee/pages/employee/searchpage/search.dart';
 import 'package:namaa_employee/requests/reminderRequests.dart';
 import 'package:parse_server_sdk/parse_server_sdk.dart';
@@ -11,6 +13,8 @@ import 'notEdit.dart';
 
 class NotaficationsPage extends ConsumerWidget {
   DateTime today = DateTime.now();
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+
   Future<void> _showMyDialog(context, ParseObject reminder) async {
     return showDialog<void>(
       context: context,
@@ -65,7 +69,12 @@ class NotaficationsPage extends ConsumerWidget {
                           // mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Spacer(),
-                            Text(reminder.get("createdAt").toString()),
+                            Text(
+                              formatter
+                                  .format(reminder.get("createdAt"))
+                                  .toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         )
                       ],
@@ -125,7 +134,11 @@ class NotaficationsPage extends ConsumerWidget {
                                 Icons.chat,
                                 color: Colors.white,
                               ),
-                              onPressed: () {})
+                              onPressed: () {
+                                FlutterOpenWhatsapp.sendSingleMessage(
+                                    reminder.get('donor').get('phoneNumber'),
+                                    reminder.get("reply"));
+                              })
                         ],
                       ),
                     ),
@@ -155,7 +168,7 @@ class NotaficationsPage extends ConsumerWidget {
               Material(
                 //elevation: 20,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(0, 10, 20, 0),
+                  padding: EdgeInsets.fromLTRB(20, 10, 20, 0),
                   color: gray,
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +186,7 @@ class NotaficationsPage extends ConsumerWidget {
                             style: TextStyle(fontSize: 20, color: darkgray),
                           ),
                           Text(
-                            today.toString(),
+                            formatter.format(today).toString(),
                             style: TextStyle(fontSize: 20, color: darkgray),
                           ),
                         ],
@@ -251,14 +264,16 @@ class NotaficationsPage extends ConsumerWidget {
                                                           .get('name')
                                                           .toString() ??
                                                       'no name'),
-                                                  Text("program-time")
+                                                  //Text("program-time")
                                                 ],
                                               ),
                                               Spacer(),
-                                              Text(context
-                                                  .read(todayReminderProvider)
-                                                  .state[index]
-                                                  .get("createdAt")
+                                              Text(formatter
+                                                  .format(context
+                                                      .read(
+                                                          todayReminderProvider)
+                                                      .state[index]
+                                                      .get("createdAt"))
                                                   .toString())
                                             ],
                                           ),
