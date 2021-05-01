@@ -136,8 +136,18 @@ class NotaficationsPage extends ConsumerWidget {
                               ),
                               onPressed: () {
                                 FlutterOpenWhatsapp.sendSingleMessage(
-                                    reminder.get('donor').get('phoneNumber'),
+                                    "+966" +
+                                        reminder
+                                            .get('donor')
+                                            .get('phoneNumber')
+                                            .toString()
+                                            .substring(1),
                                     reminder.get("reply"));
+                                // print(reminder
+                                //     .get('donor')
+                                //     .get('phoneNumber')
+                                //     .toString()
+                                //     .substring(1));
                               })
                         ],
                       ),
